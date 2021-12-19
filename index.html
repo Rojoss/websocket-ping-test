@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>
+      addEventListener("load", () => {
+        ws = new WebSocket("ws://localhost:8080");
+        ws.onmessage = (e) => {
+          const msg = JSON.parse(e.data);
+          if (!isNaN(Number(msg.diff))) {
+            console.log(`${Date.now()} - ${Number(msg.diff).toFixed(1)}`);
+          }
+
+          ws.send(e.data);
+        };
+        ws.onopen = () => ws.send(1);
+      });
+    </script>
+  </head>
+  
+  <body></body>
+</html>
